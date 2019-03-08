@@ -1,22 +1,19 @@
-from tweepy import Stream
-from tweepy import OAuthHandler
 from tweepy.streaming import StreamListener
 import json
 
-# Authentication Key's for Twitter API
-from keys.twitter import twitter_auth
-
-consumer_key, consumer_key_secret, access_token, access_token_secret = twitter_auth.values()
-
-
-class TwitterStream(StreamListener):
+class TwitterApiStream(StreamListener):
 
     '''
-    TwitterStream:
+    TwitterApiStream:
 
     This class inherits StreamListener class from tweepy's streaming
     module to stream twitter tweets
     '''
+
+    # def __init__(self):
+
+    def set_auth_tokens(self, token):
+        print(token)
 
     def on_data(self, data):
         """
@@ -39,10 +36,3 @@ class TwitterStream(StreamListener):
             data: status
         """
         print(status)
-
-
-auth = OAuthHandler(consumer_key, consumer_key_secret)
-auth.set_access_token(access_token, access_token_secret)
-
-twitterStream = Stream(auth, TwitterStream())
-twitterStream.filter(track=['donald trump'])
