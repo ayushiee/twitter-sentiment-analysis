@@ -20,7 +20,7 @@ class TwitterApiStream(StreamListener):
     def __init__(self):
         self.authentication = None
 
-    def startStreaming(self):
+    def startStreaming(self, keyword):
         """
         Starts the twitter streaming
 
@@ -32,7 +32,7 @@ class TwitterApiStream(StreamListener):
         self.authentication.set_access_token(access_token, access_token_secret)
 
         Stream(self.authentication, self).filter(
-            track=['donald trump'], is_async=True)
+            track=[keyword], is_async=True)
 
     def on_data(self, data):
         """
