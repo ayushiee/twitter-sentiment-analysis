@@ -23,19 +23,28 @@ class TwitterApiHelper(StreamListener):
         self.authentication.set_access_token(access_token, access_token_secret)
 
     def getPublicTweets(self, keyword):
+        """
+        Retrieves the latest public tweets from the twitter with a
+        particular keyword
+
+        Params:
+            self: Object
+            keyword: String
+
+        returns:
+           public tweets data
+        """
 
         return tweepy.API(self.authentication).search(keyword)
 
     def startStreaming(self, keyword):
         """
-        Starts the twitter streaming
+        Starts the twitter streaming in async mode
 
         Params:
-            self: self
+            self: Object
+            keyword: String
         """
-
-        # self.authentication = OAuthHandler(consumer_key, consumer_key_secret)
-        # self.authentication.set_access_token(access_token, access_token_secret)
 
         Stream(self.authentication, self).filter(
             track=[keyword], is_async=True)
@@ -45,7 +54,7 @@ class TwitterApiHelper(StreamListener):
         Invoked on data stream success
 
         Params:
-            self: self
+            self: Object
             data: json response
         """
 
