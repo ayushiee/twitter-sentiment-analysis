@@ -1,14 +1,11 @@
 from textblob import TextBlob
 from TwitterApi.TwitterApiHelper import TwitterApiHelper
+from Model.SentimentAnalysis import SentimentAnalysis
 
-publicTweets = TwitterApiHelper().getPublicTweets(keyword='trump')
-
-for tweet in publicTweets:
-	print(tweet.text)
-	analysis = TextBlob(tweet.text)
-	if analysis.sentiment[0] > 0:
-		print('Positive')
-	else:
-		print('Negative')
-	print('')
+keyword = input('Enter the Keyword: ')
+twitterApiHelper = TwitterApiHelper()
+publicTweets = twitterApiHelper.getPublicTweets(keyword=keyword)
+model = SentimentAnalysis(publicTweets)
+model.runSentimentAnalysis()
+model.generateReport()
 
