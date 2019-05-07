@@ -1,2 +1,4 @@
 tweepy
-TextBlob
+textblob
+termcolor
+matplotlib
