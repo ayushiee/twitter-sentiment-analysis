@@ -1,24 +1,30 @@
 import json
+import tweepy
 from tweepy import Stream
 from tweepy import OAuthHandler
 from tweepy.streaming import StreamListener
 from TwitterApi.AuthenticationTokens import twitter_auth_tokens
 
-
 consumer_key, consumer_key_secret, access_token, access_token_secret = twitter_auth_tokens.values()
 
-
-class TwitterApiStream(StreamListener):
+class TwitterApiHelper(StreamListener):
 
     '''
-    TwitterApiStream:
+    TwitterApiHelper:
 
     This class inherits StreamListener class from tweepy's streaming
-    module to stream twitter tweets
+    module to stream twitter tweets or get public tweets
     '''
 
     def __init__(self):
-        self.authentication = None
+        # self.authentication = None
+        self.authentication = OAuthHandler(
+            consumer_key, consumer_key_secret)
+        self.authentication.set_access_token(access_token, access_token_secret)
+
+    def getPublicTweets(self, keyword):
+
+        return tweepy.API(self.authentication).search(keyword)
 
     def startStreaming(self, keyword):
         """
@@ -28,8 +34,8 @@ class TwitterApiStream(StreamListener):
             self: self
         """
 
-        self.authentication = OAuthHandler(consumer_key, consumer_key_secret)
-        self.authentication.set_access_token(access_token, access_token_secret)
+        # self.authentication = OAuthHandler(consumer_key, consumer_key_secret)
+        # self.authentication.set_access_token(access_token, access_token_secret)
 
         Stream(self.authentication, self).filter(
             track=[keyword], is_async=True)
