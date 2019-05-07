@@ -20,7 +20,7 @@ class SentimentAnalysis():
         }
 
     def runSentimentAnalysis(self):
-        print(colored('Retrieved Tweets Data', 'blue'))
+        print(colored('[->] Retrieved Tweets Data', 'blue'))
         for tweet in self.publicTweets:
             originalTweet = tweet.text
             analysis = TextBlob(tweet.text)
@@ -34,7 +34,7 @@ class SentimentAnalysis():
 
     def generateReport(self):
 
-        print(colored('Analysis Reports Saved', 'green'))
+        print(colored('[√] Analysis Reports Saved', 'green'))
 
         labels = ['Positive', 'Negative']
         values = [values for values in self.analysisResult.values()]
@@ -42,5 +42,5 @@ class SentimentAnalysis():
         plt.title('Analysis Report on: ' + self.keyword)
         plt.pie(values, labels=labels, autopct='%1.f%%')
         plt.savefig('./Reports/' + self.keyword +
-                    '-' + int(time.time()) + '.png')
+                    '-' + str(int(time.time())) + '.png')
         plt.show()
