@@ -5,7 +5,7 @@ from Model.SentimentAnalysis import SentimentAnalysis
 keyword = input('Enter the Keyword: ')
 twitterApiHelper = TwitterApiHelper()
 publicTweets = twitterApiHelper.getPublicTweets(keyword=keyword)
-model = SentimentAnalysis(publicTweets)
+model = SentimentAnalysis(keyword, publicTweets)
 model.runSentimentAnalysis()
 model.generateReport()
 
